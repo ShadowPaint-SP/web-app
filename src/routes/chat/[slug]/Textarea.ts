@@ -1,35 +1,13 @@
-import { goto } from "$app/navigation";
 
 let disableDurationms = 5000
 let parentElement: HTMLAreaElement | null = null
 
-export function clearTextarea(node: HTMLElement) {
-  (node as HTMLTextAreaElement).value = '';
-}
 
 function getCurrentTime(): string {
   const now = new Date();
   return new Intl.DateTimeFormat('de', {timeStyle:'short'}).format(now);
 }
 
-export async function handleSearch(textarea: HTMLTextAreaElement, ) {
-  if (textarea.value.trim() !== '') {
-    await goto('/chat/first-conv') //TODO: has to be dynamic
-    
-    parentElement = document.querySelector('#conversation')
-    
-    if (parentElement) {
-      await createNewDiv(parentElement, textarea.value)
-    }
-    clearTextarea(textarea)
-
-    textarea.disabled = true
-    setTimeout(() => {
-      textarea.disabled = false
-      textarea.focus()
-    }, disableDurationms)
-  }
-}
 
 function createNewDiv(parent: HTMLElement, textareaContent: String) {
   const newDiv = document.createElement('div');
