@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type ChatsContent {
+  id           Int
+  answer       String
+  answerTime   DateTime @default(now())
+  question     String
+  questionTime DateTime @default(now())
+}
+
+model Chats {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String         @unique
+  title     String
+  content   ChatsContent[]
+  createdAt DateTime       @default(now())
+}
