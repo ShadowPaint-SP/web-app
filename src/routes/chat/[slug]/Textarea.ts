@@ -1,8 +1,3 @@
-
-let disableDurationms = 5000
-let parentElement: HTMLAreaElement | null = null
-
-
 function getCurrentTime(): string {
   const now = new Date();
   return new Intl.DateTimeFormat('de', {timeStyle:'short'}).format(now);

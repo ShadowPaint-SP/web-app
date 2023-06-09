@@ -21,7 +21,6 @@
 		loading = true
 		return async ({ update }) => {
 			//do something when it is submitted
-
 			loading = false
 			await update()
 		}
@@ -44,32 +43,35 @@
 
 		<div id="conversation" class="flex flex-col">
 			{#each data.chat.content as content}
-				<div id="question" class="flex flex-row justify-end text-neutral-400">
-					<div class="text-end pr-2">
-						<p>{formatDate(content.questionTime)}</p>
-						<span>{content.question}</span>
-					</div>
-					<div>
-						<div class="avatar placeholder pt-5">
-							<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
-								<span class=" text-sm">MX</span>
+				{#if content.state == true}
+					<div id="question" class="flex flex-row justify-end text-neutral-400">
+						<div class="text-end pr-2">
+							<p>{formatDate(content.time)}</p>
+							<span>{content.text}</span>
+						</div>
+						<div>
+							<div class="avatar placeholder pt-5">
+								<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
+									<span class=" text-sm">MX</span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="answer" class="flex flex-row">
-					<div>
-						<div class="avatar placeholder pt-5">
-							<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
-								<span class=" text-sm">VG</span>
+				{:else}
+					<div id="answer" class="flex flex-row">
+						<div>
+							<div class="avatar placeholder pt-5">
+								<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
+									<span class=" text-sm">VG</span>
+								</div>
 							</div>
 						</div>
+						<div class="pl-2">
+							<p>{formatDate(content.time)}</p>
+							<span>{content.text}</span>
+						</div>
 					</div>
-					<div class="pl-2">
-						<p>{formatDate(content.answerTime)}</p>
-						<span>{content.answer}</span>
-					</div>
-				</div>
+				{/if}
 			{/each}
 		</div>
 	</div>
@@ -85,6 +87,7 @@
 				use:enhance={addMessage}
 				class="flex flex-row border border-base-200 rounded-lg shadow-md items-center hover:border-neutral-400"
 			>
+				<div id="number" class="hidden">{data.chat.content.length}</div>
 				<input
 					tabindex="0"
 					type="text"
