@@ -31,9 +31,9 @@
 	//}
 </script>
 
-<pre>
+<!--<pre>
 	{JSON.stringify(data, null, 2)}
-</pre>
+</pre>-->
 <div>
 	<div>
 		<hgroup>
@@ -52,7 +52,7 @@
 						<div>
 							<div class="avatar placeholder pt-5">
 								<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
-									<span class=" text-sm">MX</span>
+									<span class="text-sm">MX</span>
 								</div>
 							</div>
 						</div>
@@ -62,7 +62,7 @@
 						<div>
 							<div class="avatar placeholder pt-5">
 								<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
-									<span class=" text-sm">VG</span>
+									<span class="text-sm">VG</span>
 								</div>
 							</div>
 						</div>
