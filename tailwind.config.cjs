@@ -4,6 +4,7 @@ const config = {
 
 	theme: {
 		extend: {}
+
 	},
 	daisyui: {
 		themes: ["light", "dark"],

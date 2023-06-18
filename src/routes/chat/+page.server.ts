@@ -34,9 +34,10 @@ export const actions: Actions = {
         slug: slug
       }
     })
-
+    console.log('test :>> ', test);
     // check if entry already exists ( workaround because @unique doesnt work)
     if (test !== null) {
+      console.log('object :>> ');
       const data = {
           data: Object.fromEntries(formData),
           errors: 'this chat already exists'

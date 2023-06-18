@@ -27,9 +27,9 @@
 	}
 </script>
 
-<pre>
+<!--<pre>
 	{JSON.stringify(data, null, 2)}
-</pre>
+</pre>-->
 <div>
 	<div>
 		<hgroup>
@@ -83,9 +83,9 @@
 				use:enhance={addMessage}
 				class="flex flex-row border border-base-200 rounded-lg shadow-md items-center hover:border-neutral-400"
 			>
-				<div id="number" class="hidden">{data.chat.content.length}</div>
 				<input
 					tabindex="0"
+					autocomplete="off"
 					type="text"
 					name="messagesend"
 					disabled={loading}
