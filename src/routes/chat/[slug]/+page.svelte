@@ -99,9 +99,6 @@
 					<span class="text-error">min. 5 Words</span>
 				{/if}
 
-				<!--<button class="pl-2 h-auto active:scale-90 secondary" formaction="?/clearMessage">
-					<img src={trash} alt="trash" class="my-2" />
-				</button>-->
 				{#if loading}
 					<div class="flex items-center py-2 px-2">
 						<svg

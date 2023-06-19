@@ -51,7 +51,7 @@
 
 <div class="h-screen flex flex-row">
 	<aside class="h-screen border-r-2 border-base-300 flex">
-		<div class="w-[500px] px-8 flex flex-grow flex-col overflow-y-auto">
+		<div class="w-[500px] px-8 flex flex-grow flex-col overflow-y-auto" data-simplebar>
 			{#if selected == 'settings'}
 				<div class="flex-grow">
 					<div class="sticky top-0 py-4 bg-base-100">
@@ -196,7 +196,7 @@
 						</button>
 
 						<select
-							class="select border border-base-300 w-full max-w-xs focus:outline-none mb-4 font-bold"
+							class="select border border-base-300 max-w-lg w-full focus:outline-none mb-4 font-bold"
 						>
 							<option selected>Version 1</option>
 							<option>Version 2</option>
@@ -375,7 +375,7 @@
 					</div>
 				</div>
 			{/if}
-			<div class="sticky bottom-0 max-h-max w-full">
+			<div class="sticky bottom-0 max-h-max w-full bg-base-100">
 				<div class="w-full inline-flex items-center border border-base-300 rounded-xl p-1 mb-8">
 					<label
 						for="history"
@@ -422,7 +422,7 @@
 			<div class="ml-3 text-green-500">favicon</div>
 
 			<nav class="items-center w-full flex justify-end">
-				<div class="ml-3 grid grid-flow-col items-center">
+				<!--<div class="ml-3 grid grid-flow-col items-center">
 					<a class="text-orange-400" href="/subscribe">Subscribe</a>
 					<svg
 						stroke="currentcolor"
@@ -435,11 +435,11 @@
 						class="ml-1 h-5 w-5 stroke-orange-400"
 						><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg
 					>
-				</div>
+				</div>-->
 
-				<div class="ml-3">
+				<!--<div class="ml-3">
 					<a href="/about">about</a>
-				</div>
+				</div>-->
 
 				<div class="ml-3 avatar placeholder">
 					<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
