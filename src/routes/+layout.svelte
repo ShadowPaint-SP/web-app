@@ -47,7 +47,7 @@
 				<div class="flex-grow">
 					<div class="sticky top-0 py-4 bg-base-100">
 						<h2 class="m-0">Settings</h2>
-						<h2>{$setVersion} {$setMode} {$recourceLink}</h2>
+						<!--<h2>{$setVersion} {$setMode} {$recourceLink}</h2>-->
 					</div>
 					<div class="pt-8">
 						<button

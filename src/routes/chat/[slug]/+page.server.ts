@@ -1,7 +1,8 @@
 import { error, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { PrismaClient } from "@prisma/client";
-import { setMode } from '../../store'
+import { setMode, setVersion, recourceLink } from '../../store'
+import type { Writable } from "svelte/store";
 const db = new PrismaClient()
 
 
@@ -19,16 +20,16 @@ export const load: PageServerLoad = async ({ params }) => {
 	return { chat }
 }
 // just sleep
-async function sleep(ms:number) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}
+//async function sleep(ms:number) {
+//	return new Promise((resolve) => setTimeout(resolve, ms))
+//}
 
 // the real thing
 export const actions: Actions = {
 	addMessage: async ({ request, params, url }) => {
 		const formData = await request.formData()
 		const message = String(formData.get('messagesend'))
-		const errors: Record<string, unknown> = {}
+
 		
 		// checks
 		if(!message){
@@ -69,10 +70,14 @@ export const actions: Actions = {
 		// make KI request
 		number += 1
 		interface Item {
+			mode: Writable<number>
+			version: Writable<string>
+			recourcelink: Writable<boolean>
 			text: string
 		}
 
-		const requestBody: Item = { text: message }
+		const requestBody: Item = { mode: setMode, version: setVersion, recourcelink: recourceLink,  text: message }
+		
 		const response = await fetch('http://127.0.0.1:8000/request/',{
 			method: 'POST',
 			headers: {
