@@ -40,7 +40,7 @@
 		<hgroup>
 			<h1>{data.chat.title}</h1>
 			<h2>{formatDate(data.chat.createdAt)}</h2>
-			<h2>{mode}{version}{link}</h2>
+			<!--<h2>{mode}{version}{link}</h2>-->
 		</hgroup>
 
 		<div id="conversation" class="flex flex-col">
