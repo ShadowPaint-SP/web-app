@@ -12,9 +12,14 @@
 	import send from '$lib/svg/send.svg'
 	import trash from '$lib/svg/trash.svg'
 	import { enhance } from '$app/forms'
-
+	import { setMode, setVersion, recourceLink } from '../../store'
 	export let form: ActionData
 	let loading = false
+	let mode: any, version: any, link: any
+
+	setMode.subscribe((value) => (mode = value))
+	setVersion.subscribe((value) => (version = value))
+	recourceLink.subscribe((value) => (link = value ? 1 : 0))
 
 	const addMessage: SubmitFunction = (input) => {
 		// check if it is a link or a text
@@ -35,6 +40,7 @@
 		<hgroup>
 			<h1>{data.chat.title}</h1>
 			<h2>{formatDate(data.chat.createdAt)}</h2>
+			<h2>{mode}{version}{link}</h2>
 		</hgroup>
 
 		<div id="conversation" class="flex flex-col">
@@ -92,6 +98,9 @@
 					placeholder="Send a message."
 					class="text flex-grow resize-none h-7 min-h-full focus:outline-none pl-4"
 				/>
+				<input type="hidden" bind:value={mode} name="mode" />
+				<input type="hidden" bind:value={version} name="version" />
+				<input type="hidden" bind:value={link} name="link" />
 				{#if form?.missing}
 					<span class="text-error">Please input text</span>
 				{/if}

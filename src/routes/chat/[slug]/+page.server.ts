@@ -1,8 +1,6 @@
 import { error, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { PrismaClient } from "@prisma/client";
-import { setMode, setVersion, recourceLink } from '../../store'
-import type { Writable } from "svelte/store";
 const db = new PrismaClient()
 
 
@@ -29,8 +27,10 @@ export const actions: Actions = {
 	addMessage: async ({ request, params, url }) => {
 		const formData = await request.formData()
 		const message = String(formData.get('messagesend'))
+		const mode = Number(formData.get('mode'))
+		const version = String(formData.get('version'))
+		const link = Number(formData.get('link')) === 1
 
-		
 		// checks
 		if(!message){
 			return fail(400, { message, missing: true })
@@ -66,18 +66,20 @@ export const actions: Actions = {
 				}
 			}
 		)
-
+		
 		// make KI request
 		number += 1
 		interface Item {
-			mode: Writable<number>
-			version: Writable<string>
-			recourcelink: Writable<boolean>
+			mode: number
+			version: string
+			recourcelink: boolean
 			text: string
 		}
 
-		const requestBody: Item = { mode: setMode, version: setVersion, recourcelink: recourceLink,  text: message }
-		
+		const requestBody: Item = {mode: mode, version: version, recourcelink: link, text: message }
+
+		console.log('requestBody :>> ', requestBody);
+
 		const response = await fetch('http://127.0.0.1:8000/request/',{
 			method: 'POST',
 			headers: {
@@ -86,7 +88,7 @@ export const actions: Actions = {
 			body: JSON.stringify(requestBody)
 		})
 		const data = await response.json();
-
+		//console.log('data :>> ', data);
 		// create KI answer db entry
 
 		await db.chats.update({
@@ -107,6 +109,3 @@ export const actions: Actions = {
 		return { success: true }
 	}
 }
-
-
-
