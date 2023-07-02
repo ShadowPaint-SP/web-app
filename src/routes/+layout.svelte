@@ -3,24 +3,11 @@
 	import type { LayoutData } from './$types'
 	import '../app.postcss'
 	import { onMount } from 'svelte'
+	import { setMode, setVersion, recourceLink } from './store'
 
 	export let data: LayoutData
 	let selected = 'settings'
 
-	let checkedButtonIndex = 1
-
-	function toggleButton(buttonIndex: number) {
-		checkedButtonIndex = buttonIndex
-	}
-
-	let ismodefour = false
-	function togglemodefour() {
-		ismodefour = !ismodefour
-	}
-	let ismodefive = false
-	function togglemodefive() {
-		ismodefive = !ismodefive
-	}
 	let isdarkmode = false
 	function toggleDarkMode() {
 		isdarkmode = !isdarkmode
@@ -33,6 +20,10 @@
 		localStorage.setItem('theme', newTheme)
 
 		localStorage.setItem('isdarkmode', isdarkmode.toString())
+	}
+
+	function handleVersionChange(event: any) {
+		$setVersion = event.target.value
 	}
 
 	// load session data (if page is reloaded or opened again)
@@ -56,11 +47,12 @@
 				<div class="flex-grow">
 					<div class="sticky top-0 py-4 bg-base-100">
 						<h2 class="m-0">Settings</h2>
+						<h2>{$setVersion} {$setMode} {$recourceLink}</h2>
 					</div>
 					<div class="pt-8">
 						<button
 							class="border border-base-300 rounded-xl mb-4 flex flex-row cursor-pointer text-left"
-							on:click={() => toggleButton(1)}
+							on:click={() => ($setMode = 1)}
 						>
 							<div class="p-3">
 								<svg
@@ -69,7 +61,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-300 ${checkedButtonIndex === 1 ? 'hidden' : ''}`}
+									class={`ml-1 h-8 w-8 stroke-base-300 ${$setMode === 1 ? 'hidden' : ''}`}
 								>
 									<circle cx="12" cy="12" r="8" stroke-linecap="round" stroke-dasharray="3 3" />
 								</svg>
@@ -79,7 +71,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-100 ${checkedButtonIndex === 1 ? '' : 'hidden'}`}
+									class={`ml-1 h-8 w-8 stroke-base-100 ${$setMode === 1 ? '' : 'hidden'}`}
 								>
 									<circle
 										cx="12"
@@ -105,7 +97,7 @@
 						</button>
 						<button
 							class="border border-base-300 rounded-xl mb-4 flex flex-row cursor-pointer text-left"
-							on:click={() => toggleButton(2)}
+							on:click={() => ($setMode = 2)}
 						>
 							<div class="p-3">
 								<svg
@@ -114,7 +106,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-300 ${checkedButtonIndex === 2 ? 'hidden' : ''}`}
+									class={`ml-1 h-8 w-8 stroke-base-300 ${$setMode === 2 ? 'hidden' : ''}`}
 								>
 									<circle cx="12" cy="12" r="8" stroke-linecap="round" stroke-dasharray="3 3" />
 								</svg>
@@ -124,7 +116,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-100 ${checkedButtonIndex === 2 ? '' : 'hidden'}`}
+									class={`ml-1 h-8 w-8 stroke-base-100 ${$setMode === 2 ? '' : 'hidden'}`}
 								>
 									<circle
 										cx="12"
@@ -151,7 +143,7 @@
 
 						<button
 							class="border border-base-300 rounded-xl mb-4 flex flex-row cursor-pointer text-left"
-							on:click={() => toggleButton(3)}
+							on:click={() => ($setMode = 3)}
 						>
 							<div class="p-3">
 								<svg
@@ -160,7 +152,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-300 ${checkedButtonIndex === 3 ? 'hidden' : ''}`}
+									class={`ml-1 h-8 w-8 stroke-base-300 ${$setMode === 3 ? 'hidden' : ''}`}
 								>
 									<circle cx="12" cy="12" r="8" stroke-linecap="round" stroke-dasharray="3 3" />
 								</svg>
@@ -170,7 +162,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-8 w-8 stroke-base-100 ${checkedButtonIndex === 3 ? '' : 'hidden'}`}
+									class={`ml-1 h-8 w-8 stroke-base-100 ${$setMode === 3 ? '' : 'hidden'}`}
 								>
 									<circle
 										cx="12"
@@ -196,16 +188,18 @@
 						</button>
 
 						<select
-							class="select border border-base-300 max-w-lg w-full focus:outline-none mb-4 font-bold"
+							class="select border border-base-300 w-full focus:outline-none mb-4 font-bold"
+							bind:value={$setVersion}
+							on:change={handleVersionChange}
 						>
-							<option selected>Version 1</option>
-							<option>Version 2</option>
-							<option>Version 3</option>
+							<option value="1">Version 1</option>
+							<option value="2">Version 2</option>
+							<option value="3">Version 3</option>
 						</select>
 
 						<button
 							class="mb-4 flex flex-row w-full cursor-pointer text-left"
-							on:click={togglemodefour}
+							on:click={() => ($recourceLink = !$recourceLink)}
 						>
 							<div class="pt-1">
 								<svg
@@ -214,7 +208,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-7 w-7 stroke-base-300 ${ismodefour ? 'hidden' : ''}`}
+									class={`ml-1 h-7 w-7 stroke-base-300 ${$recourceLink ? 'hidden' : ''}`}
 								>
 									<circle cx="12" cy="12" r="8" stroke-linecap="round" stroke-dasharray="3 3" />
 								</svg>
@@ -224,7 +218,7 @@
 									viewBox="0 0 24 24"
 									stroke="currentcolor"
 									fill="none"
-									class={`ml-1 h-7 w-7 stroke-base-100 ${ismodefour ? '' : 'hidden'}`}
+									class={`ml-1 h-7 w-7 stroke-base-100 ${$recourceLink ? '' : 'hidden'}`}
 								>
 									<circle
 										cx="12"
@@ -244,48 +238,6 @@
 								<p class="m-0 font-bold">Show recource-link</p>
 							</div>
 						</button>
-
-						<!--<button
-							class="mb-4 flex flex-row w-full cursor-pointer text-left"
-							on:click={togglemodefive}
-						>
-							<div class="pt-1">
-								<svg
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									stroke="currentcolor"
-									fill="none"
-									class={`ml-1 h-7 w-7 stroke-base-300 ${ismodefive ? 'hidden' : ''}`}
-								>
-									<circle cx="12" cy="12" r="8" stroke-linecap="round" stroke-dasharray="3 3" />
-								</svg>
-								<svg
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									stroke="currentcolor"
-									fill="none"
-									class={`ml-1 h-7 w-7 stroke-base-100 ${ismodefive ? '' : 'hidden'}`}
-								>
-									<circle
-										cx="12"
-										cy="12"
-										r="8"
-										fill="#636363"
-										stroke="#636363"
-										stroke-linecap="round"
-									/>
-									<path
-										d="M10.488 15.6a.628.628 0 0 1-.469-.21l-2.64-2.728a.653.653 0 0 1-.18-.493.706.706 0 0 1 .196-.492.625.625 0 0 1 .468-.194.63.63 0 0 1 .47.194l2.186 2.26 5.171-5.343a.616.616 0 0 1 .46-.194c.183 0 .337.064.462.194a.658.658 0 0 1 .187.476.659.659 0 0 1-.187.476l-5.655 5.844a.628.628 0 0 1-.469.21Z"
-										fill="#fff"
-									/>
-								</svg>
-							</div>
-							<div class="pl-2 pt-0.5">
-								<p class="m-0 font-bold">Shoes!</p>
-							</div>
-						</button>-->
 
 						<button
 							class="mb-4 flex flex-row w-full cursor-pointer text-left"
@@ -419,7 +371,7 @@
 			<div>
 				<h2 class="m-0"><a class="font-bold" href="/">Vanguard</a></h2>
 			</div>
-			<div class="ml-3 text-green-500">favicon</div>
+			<span class="ml-2 badge badge-lg badge-error">DEMO</span>
 
 			<nav class="items-center w-full flex justify-end">
 				<!--<div class="ml-3 grid grid-flow-col items-center">

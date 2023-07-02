@@ -1,9 +1,7 @@
 import { error, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-
-
 import { PrismaClient } from "@prisma/client";
-import { invalidateAll } from "$app/navigation";
+import { setMode } from '../../store'
 const db = new PrismaClient()
 
 
