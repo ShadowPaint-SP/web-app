@@ -49,7 +49,7 @@
 					<div id="question" class="flex flex-row justify-end text-neutral-400">
 						<div class="text-end pr-2">
 							<p>{formatDate(content.time)}</p>
-							<span>{content.text}</span>
+							<span class="multiline">{content.text}</span>
 						</div>
 						<div>
 							<div class="avatar placeholder pt-5">
@@ -70,7 +70,7 @@
 						</div>
 						<div class="pl-2">
 							<p>{formatDate(content.time)}</p>
-							<span>{content.text}</span>
+							<span class="multiline">{content.text}</span>
 						</div>
 					</div>
 				{/if}
@@ -135,3 +135,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.multiline {
+		white-space: pre-line;
+	}
+</style>

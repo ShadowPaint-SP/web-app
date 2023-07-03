@@ -80,7 +80,7 @@ export const actions: Actions = {
 
 		console.log('requestBody :>> ', requestBody);
 
-		const response = await fetch('http://127.0.0.1:8000/request/',{
+		const response = await fetch('http://127.0.0.1:8000/test/',{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export const actions: Actions = {
 			body: JSON.stringify(requestBody)
 		})
 		const data = await response.json();
-		//console.log('data :>> ', data);
+		console.log('data :>> ', data);
 		// create KI answer db entry
 
 		await db.chats.update({

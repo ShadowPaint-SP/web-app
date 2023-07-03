@@ -1,3 +1,4 @@
+import type { Actions } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
 
 import { PrismaClient } from "@prisma/client";
@@ -12,4 +13,4 @@ export const load: LayoutServerLoad = async (event) => {
 	})
 	return { chats }
 
-}
+};

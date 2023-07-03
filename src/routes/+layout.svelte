@@ -4,9 +4,11 @@
 	import '../app.postcss'
 	import { onMount } from 'svelte'
 	import { setMode, setVersion, recourceLink } from './store'
+	import trash from '$lib/svg/trash.svg'
+	import { goto, invalidateAll } from '$app/navigation'
 
 	export let data: LayoutData
-	let selected = 'settings'
+	let selected = 'history'
 
 	let isdarkmode = false
 	function toggleDarkMode() {
@@ -24,6 +26,20 @@
 
 	function handleVersionChange(event: any) {
 		$setVersion = event.target.value
+	}
+
+	async function handleTrash(event: any) {
+		const formData = new FormData(event.target)
+		const response = await fetch('/api/delete', {
+			method: 'DELETE',
+			body: formData
+		})
+		if (response.ok) {
+			await goto('/chat')
+			invalidateAll()
+		} else {
+			console.error('response :>> ', response)
+		}
 	}
 
 	// load session data (if page is reloaded or opened again)
@@ -284,18 +300,26 @@
 			{:else}
 				<div>
 					<div class="sticky top-0 py-4 bg-base-100">
-						<h2 class="m-0">History</h2>
+						<h2 class="m-0 font-normal">History</h2>
 					</div>
 					<nav class="pt-4 not-prose">
 						<ul>
 							{#each data.chats as { slug, title }}
-								<a href="/chat/{slug}" tabindex="-1">
-									<p
-										class="p-4 mt-4 text-center border border-base-300 rounded-lg active:scale-95 cursor-pointer hover:border-neutral-400"
-									>
-										{title}
-									</p>
-								</a>
+								<div
+									class="flex flex-row mt-4 border border-base-300 rounded-lg cursor-pointer hover:border-neutral-400 justify-between"
+								>
+									<a href="/chat/{slug}" tabindex="-1" class="w-full active:scale-95">
+										<p class="text-xl p-4 text-left w-full">
+											{title}
+										</p>
+									</a>
+									<form class="" on:submit|preventDefault={handleTrash} method="POST">
+										<input type="hidden" name="slug" value={slug} />
+										<button class="px-5 active:scale-95 h-full">
+											<img src={trash} alt="trash" class="w-5" />
+										</button>
+									</form>
+								</div>
 							{/each}
 						</ul>
 					</nav>
@@ -350,7 +374,9 @@
 							selected === 'settings' ? 'bg-black text-base-100' : ''
 						} text-center flex-grow border-l border-base-100 pb-1 rounded-lg cursor-pointer`}
 					>
+						<!-- Infomation the setting are Disabled because they are a WIP at the moment -->
 						<input
+							disabled
 							type="radio"
 							name="switch"
 							id="settings"
@@ -368,9 +394,9 @@
 	<div class="w-full flex flex-col">
 		<header class="p-4 items-center flex flex-row border-b-2 border-base-300">
 			<div>
-				<h2 class="m-0"><a class="font-bold" href="/">Vanguard</a></h2>
+				<h2 class="m-0"><a class="font-bold" href="/">VANGUARD</a></h2>
 			</div>
-			<span class="ml-2 badge badge-lg badge-error">DEMO</span>
+			<!--<span class="ml-2 badge badge-lg badge-error">DEMO</span>-->
 
 			<nav class="items-center w-full flex justify-end">
 				<!--<div class="ml-3 grid grid-flow-col items-center">
@@ -396,7 +422,7 @@
 					<div class="bg-neutral-focus text-neutral-content rounded-lg w-8">
 						<span class=" text-sm">MX</span>
 					</div>
-					<span class="ml-1">username</span>
+					<!--<span class="ml-1">username</span>-->
 				</div>
 			</nav>
 		</header>
