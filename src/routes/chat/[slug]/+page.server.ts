@@ -22,6 +22,11 @@ export const load: PageServerLoad = async ({ params }) => {
 //	return new Promise((resolve) => setTimeout(resolve, ms))
 //}
 
+async function wordcount(str:string) {
+	const count = str.split(' ')
+	return count.length >= 5
+}
+
 // the real thing
 export const actions: Actions = {
 	addMessage: async ({ request, params, url }) => {
@@ -36,7 +41,7 @@ export const actions: Actions = {
 			return fail(400, { message, missing: true })
 		}
 		
-		if (message.length < 5) {
+		if (!await wordcount(message)) {
 			return fail(400, { message, longer: true})
 		}
 		
@@ -89,8 +94,8 @@ export const actions: Actions = {
 		})
 		const data = await response.json();
 		console.log('data :>> ', data);
-		// create KI answer db entry
 
+		// create KI answer db entry
 		await db.chats.update({
 			where:{
 				slug: params.slug

@@ -101,10 +101,10 @@
 				<input type="hidden" bind:value={mode} name="mode" />
 				<input type="hidden" bind:value={version} name="version" />
 				<input type="hidden" bind:value={link} name="link" />
-				{#if form?.missing}
+				{#if form?.missing && !loading}
 					<span class="text-error">Please input text</span>
 				{/if}
-				{#if form?.longer}
+				{#if form?.longer && !loading}
 					<span class="text-error">min. 5 Words</span>
 				{/if}
 

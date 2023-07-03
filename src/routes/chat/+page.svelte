@@ -32,7 +32,6 @@
 	</pre>-->
 	<h1 class="text-center">Start Busting Fake News!</h1>
 
-	<!--action="?/addMessage"-->
 	<form
 		method="POST"
 		use:enhance={create}
@@ -44,12 +43,18 @@
 			type="text"
 			name="chatname"
 			disabled={loading}
-			placeholder="Give the chat a name."
+			placeholder="Send a message."
 			class="text flex-grow resize-none h-7 min-h-full focus:outline-none pl-4"
 		/>
 		<input type="hidden" bind:value={mode} name="mode" />
 		<input type="hidden" bind:value={version} name="version" />
 		<input type="hidden" bind:value={link} name="link" />
+		{#if form?.missing && !loading}
+			<span class="text-error">Please input text</span>
+		{/if}
+		{#if form?.longer && !loading}
+			<span class="text-error">min. 5 Words</span>
+		{/if}
 		{#if loading}
 			<div class="flex items-center py-2 px-2">
 				<svg

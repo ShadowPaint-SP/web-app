@@ -6,6 +6,11 @@ import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient()
 
+async function wordcount(str:string) {
+	const count = str.split(' ')
+	return count.length >= 5
+}
+
 async function shortener(str:string) {
   const words = str.split(' ')
   const fivewords = words.slice(0, 5)
@@ -38,6 +43,14 @@ export const actions: Actions = {
       return fail(400, data)
     }
 
+    		// checks
+		if(!message){
+			return fail(400, { message, missing: true })
+		}
+		
+		if (!await wordcount(message)) {
+			return fail(400, { message, longer: true})
+		}
     // preparation/ slugify
     const mshort = await shortener(message)
     const slug =await slugify(mshort)
@@ -63,7 +76,7 @@ export const actions: Actions = {
     const chat = await db.chats.create({
       data: {
         slug: slug,
-        title: mshort,
+        title: mshort + " ...",
         content: [
           {
             id: String(number),
