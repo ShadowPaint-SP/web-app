@@ -12,7 +12,6 @@ export const DELETE: RequestHandler = async ({ request }) => {
 	 const formData = await request.formData()
 	 const item = String(formData.get('slug'))
 	
-	 console.log('deleted :>> ', item);
 	 const data: Data = {
 		success: false,
 		errors: {}
