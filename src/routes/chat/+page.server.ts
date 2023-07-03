@@ -1,6 +1,6 @@
 import { fail, type Actions, redirect } from "@sveltejs/kit";
 import { zfd } from "zod-form-data";
-
+import { API_URL } from "$env/static/private";
 import { PrismaClient } from "@prisma/client";
 
 
@@ -110,7 +110,7 @@ export const actions: Actions = {
 
     console.log('requestBody :>> ', requestBody);
 
-    const response = await fetch('http://127.0.0.1:8000/test/',{
+    const response = await fetch( API_URL+'test/',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

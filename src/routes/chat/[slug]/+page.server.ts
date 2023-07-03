@@ -2,7 +2,7 @@ import { error, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { PrismaClient } from "@prisma/client";
 const db = new PrismaClient()
-
+import { API_URL } from "$env/static/private";
 
 // here we get the existing content of the chat ( we populate it )
 export const load: PageServerLoad = async ({ params }) => {
@@ -35,7 +35,6 @@ export const actions: Actions = {
 		const mode = Number(formData.get('mode'))
 		const version = String(formData.get('version'))
 		const link = Number(formData.get('link')) === 1
-
 		// checks
 		if(!message){
 			return fail(400, { message, missing: true })
@@ -85,7 +84,7 @@ export const actions: Actions = {
 
 		console.log('requestBody :>> ', requestBody);
 
-		const response = await fetch('http://127.0.0.1:8000/test/',{
+		const response = await fetch( API_URL+'test/',{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
