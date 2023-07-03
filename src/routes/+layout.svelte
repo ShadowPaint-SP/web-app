@@ -62,7 +62,7 @@
 			{#if selected == 'settings'}
 				<div class="flex-grow">
 					<div class="sticky top-0 py-4 bg-base-100">
-						<h2 class="m-0">Settings</h2>
+						<h2 class="m-0 font-normal">Settings</h2>
 					</div>
 					<div class="pt-8">
 						<button
@@ -394,7 +394,7 @@
 	<div class="w-full flex flex-col">
 		<header class="p-4 items-center flex flex-row border-b-2 border-base-300">
 			<div>
-				<h2 class="m-0"><a class="font-bold" href="/">VANGUARD</a></h2>
+				<h2 class="m-0"><a class="font-bold" href="/chat">VANGUARD</a></h2>
 			</div>
 			<!--<span class="ml-2 badge badge-lg badge-error">DEMO</span>-->
 
