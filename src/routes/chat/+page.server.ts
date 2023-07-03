@@ -110,7 +110,7 @@ export const actions: Actions = {
 
     console.log('requestBody :>> ', requestBody);
 
-    const response = await fetch( API_URL+'test/',{
+    const response = await fetch( API_URL+'test',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
