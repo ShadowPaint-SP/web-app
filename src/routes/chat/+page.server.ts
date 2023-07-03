@@ -111,14 +111,14 @@ export const actions: Actions = {
     console.log('requestBody :>> ', requestBody);
 
     const response = await fetch( API_URL+'test',{
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody)
     })
     const data = await response.json();
-
+    console.log('data :>> ', data);
 
 		// create response entry
 		await db.chats.update({
